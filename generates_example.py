@@ -1,3 +1,7 @@
+# Avoid cache
+import sys
+sys.dont_write_bytecode = True
+
 import free_twopac as ftp
 import projbar_loc as projbar
 import gen_points as gp
