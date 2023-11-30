@@ -102,7 +102,20 @@ def pp_from_srt_bd(srt_bd, cv_table_on, cv_table_no):
 
 def pbt_from_stratif(bd, st):
     if len(st) == 0: return []
+
+    pairs = []
     proj_dir = [1 - np.mean([0,st[0]]), np.mean([0,st[0]])]
     srt_bd, cv_tb_on, cv_tb_no = sorted_bd_from_dir(bd,proj_dir)
-    pairs = pp_from_srt_bd(srt_bd,cv_tb_on, cv_tb_no)
+    pairs.append(pp_from_srt_bd(srt_bd,cv_tb_on, cv_tb_no))
+    
+    if len(st) > 2:
+        for i in range(1,len(st)-1):
+            proj_dir = [1 - np.mean([st[i],st[i+1]]), np.mean([st[i],st[i+1]])]
+            srt_bd, cv_tb_on, cv_tb_no = sorted_bd_from_dir(bd,proj_dir)
+            pairs.append(pp_from_srt_bd(srt_bd,cv_tb_on, cv_tb_no))
+
+    if len(st) > 1:
+        proj_dir = [1 - np.mean([1,st[-1]]), np.mean([1,st[-1]])]
+        srt_bd, cv_tb_on, cv_tb_no = sorted_bd_from_dir(bd,proj_dir)
+        pairs.append(pp_from_srt_bd(srt_bd,cv_tb_on, cv_tb_no))
     return pairs

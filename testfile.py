@@ -7,7 +7,7 @@ import projbar_loc as projbar
 
 import numpy as np
 
-pts, grd = ftp.random_pts_grds(100,2)
+pts, grd = ftp.random_pts_grds(15,2)
 dir = [0.7, 0.3]
 
 # Hacky fix for 2pac
@@ -22,9 +22,13 @@ bd = [[0, (3.1622776601683795, 9.0), []],
         [-1, (4.123105625617661, 6.0), [1]]]
 '''
 
+''' PBT - STRATIF
 st = projbar.stratif(bd)
 pairs = projbar.pbt_from_stratif(bd, st)
-for pair in pairs: print(pair)
+for i in range(len(pairs)): 
+    print("pairs list", i)
+    for x in pairs[i] : print(x)
+'''
 
 '''
 bd_new, conv_on, conv_no = projbar.sorted_bd_from_dir(bd, dir)
