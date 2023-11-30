@@ -4,18 +4,26 @@ sys.dont_write_bytecode = True
 
 import free_twopac as ftp
 import projbar_loc as projbar
+import gen_points as gp
 import numpy as np
 import time
 
-pts, grd = ftp.random_pts_grds(500,2)
+
 dir = [0.7, 0.3]
+
+# Generates random points
+pts_r, grd_r = ftp.random_pts_grds(200,3)
+# Generate points on the torus with some outliers
+pts_t , grd_t = gp.gen_torus(200, 20, plot = True)
+# Generate points on the torus with some outliers
+pts_s , grd_s = gp.gen_sphere(200, 20, plot = True)
 
 # Hacky fix for 2pac
 from silencer import stdout_redirected
 import os
 with stdout_redirected(to=os.devnull):
     before_tp = time.perf_counter()
-    bd = ftp.func_rips_hom_free_res(pts,grd,1)
+    bd = ftp.func_rips_hom_free_res(pts_s,grd_s,2)
     after_tp = time.perf_counter()
 #end of hacky fix
 
