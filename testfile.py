@@ -5,15 +5,21 @@ sys.dont_write_bytecode = True
 import free_twopac as ftp
 import projbar_loc as projbar
 import gen_points as gp
+import generates_example as ge
 import numpy as np
 import time
 
 dir = [0.7, 0.3]
 
-# Generates points and grades
-pts_r, grd_r = ftp.random_pts_grds(100,3)
-pts_t , grd_t = gp.gen_torus(100, 20, plot = False)
-pts_s , grd_s = gp.gen_sphere(100, 20, plot = False)
+#load the examples
+path_to_random = "data_random.txt"
+path_to_sphere = "data_sphere.txt"
+path_to_torus = "data_torus.txt"
+
+# load the files
+pts_r , grd_r = ge.read_file(path_to_random)
+pts_s , grd_s = ge.read_file(path_to_sphere)
+pts_t , grd_t = ge.read_file(path_to_torus)
 
 # Run 2pac
 # Hacky fix for 2pac
