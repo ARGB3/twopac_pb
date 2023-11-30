@@ -53,7 +53,8 @@ print("-- torus points --")
 for x in perf_tp_t: print(x, "s")
 print("")
 
-#Compute projected barcode template
+#=========== PBT ============================
+
 st_r = []
 st_s = []
 st_t = []
@@ -96,6 +97,36 @@ for x in perf_pbt_s: print(x, "s")
 print("-- torus points --")
 for x in perf_pbt_t: print(x, "s")
 print("")
+
+# =========== Info PBT ==================
+
+nb_gen_r = [len(x) for x in bd_r]
+nb_gen_s = [len(x) for x in bd_s]
+nb_gen_t = [len(x) for x in bd_t]
+
+nb_st_r = [len(x) for x in st_r]
+nb_st_s = [len(x) for x in st_s]
+nb_st_t = [len(x) for x in st_t]
+
+print("===  Number generators ===")
+print("-- random points --")
+for x in nb_gen_r: print(x)
+print("-- sphere points --")
+for x in nb_gen_s: print(x)
+print("-- torus points --")
+for x in nb_gen_t: print(x)
+print("")
+
+print("===  Number cells ===")
+print("-- random points --")
+for x in nb_st_r: print(x)
+print("-- sphere points --")
+for x in nb_st_s: print(x)
+print("-- torus points --")
+for x in nb_st_t: print(x)
+print("")
+
+# ================ Pairs ================
 
 pairs_r = []
 pairs_s = []
