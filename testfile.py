@@ -10,12 +10,12 @@ import numpy as np
 import time
 
 dir = [0.7, 0.3]
-ge.generates_file()
+#ge.generates_file()
 
 #load the examples
-path_to_random = "data_random.txt"
-path_to_sphere = "data_sphere.txt"
-path_to_torus = "data_torus.txt"
+path_to_random = "examples/data_random.txt"
+path_to_sphere = "examples/data_sphere.txt"
+path_to_torus = "examples/data_torus.txt"
 
 # load the files
 pts_r , grd_r = ge.read_file(path_to_random)
@@ -40,6 +40,7 @@ with stdout_redirected(to=os.devnull):
         bd_r.append(ftp.func_rips_hom_free_res(pts_r,grd_r,i))
         after_tp = time.perf_counter()
         perf_tp_r.append(after_tp - before_tp)
+       
         before_tp = time.perf_counter()
         bd_s.append(ftp.func_rips_hom_free_res(pts_s,grd_s,i))
         after_tp = time.perf_counter()
@@ -48,6 +49,7 @@ with stdout_redirected(to=os.devnull):
         bd_t.append(ftp.func_rips_hom_free_res(pts_t,grd_t,i)) 
         after_tp = time.perf_counter()
         perf_tp_t.append(after_tp - before_tp)
+        
     
 #end of hacky fix
 
@@ -99,6 +101,7 @@ for bd in bd_t:
 print("=== Perf projected barcode template ===")
 print("-- random points --")
 for x in perf_pbt_r: print(x, "s")
+
 print("-- sphere points --")
 for x in perf_pbt_s: print(x, "s")
 print("-- torus points --")
@@ -132,7 +135,6 @@ for x in nb_st_s: print(x)
 print("-- torus points --")
 for x in nb_st_t: print(x)
 print("")
-
 # ================ Pairs ================
 
 pairs_r = []
@@ -148,7 +150,7 @@ for i in range(3):
     pairs_r.append((projbar.query_from_pbt(dir, pbt_r[i], st_r[i], bd_r[i])))
     after_pairs = time.perf_counter()
     perf_pairs_r.append(after_pairs - before_pairs)
-
+    
     before_pairs = time.perf_counter()
     pairs_s.append((projbar.query_from_pbt(dir, pbt_s[i], st_s[i], bd_s[i])))
     after_pairs = time.perf_counter()
@@ -162,8 +164,33 @@ for i in range(3):
 print("=== Perf queries ===")
 print("-- random points --")
 for x in perf_pairs_r: print(x, "s")
+
 print("-- sphere points --")
 for x in perf_pairs_s: print(x, "s")
 print("-- torus points --")
 for x in perf_pairs_t: print(x, "s")
 print("")
+
+
+'''
+for i in range(3):
+    f = open("bars/bars_r_" + str(i) + ".txt", "w")
+    f.write("H_"+str(i)+ "\n")
+    for x in pairs_r[i]:
+        f.write(str(x[0]) + " " + str(x[1]) + "\n")
+    f.close()
+
+for i in range(3):
+    f = open("bars/bars_s_" + str(i) + ".txt", "w")
+    f.write("H_"+ str(i)+ "\n")
+    for x in pairs_s[i]:
+        f.write(str(x[0]) + " " + str(x[1]) + "\n")
+    f.close()
+
+for i in range(3):
+    f = open("bars/bars_t_" + str(i) + ".txt", "w")
+    f.write("H_"+str(i)+"\n")
+    for x in pairs_t[i]:
+        f.write(str(x[0]) + " " + str(x[1]) + "\n")
+    f.close()
+'''
