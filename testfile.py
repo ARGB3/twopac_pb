@@ -10,6 +10,7 @@ import numpy as np
 import time
 
 dir = [0.7, 0.3]
+ge.generates_file()
 
 #load the examples
 path_to_random = "data_random.txt"

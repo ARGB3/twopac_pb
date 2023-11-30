@@ -27,30 +27,30 @@ def read_file(path):
     f.close()
     return np.array(pts), np.array(grd)
 
+def generates_file():
+    # Generates points and grades
+    pts_r, grd_r = ftp.random_pts_grds(100,3)
+    pts_t , grd_t = gp.gen_torus(100, 20, plot = True)
+    pts_s , grd_s = gp.gen_sphere(100, 20, plot = True)
 
-# Generates points and grades
-pts_r, grd_r = ftp.random_pts_grds(100,3)
-pts_t , grd_t = gp.gen_torus(100, 20, plot = False)
-pts_s , grd_s = gp.gen_sphere(100, 20, plot = False)
+    # Save the files
+    f = open("data_random.txt", "w")
+    f.write("Points\n")
+    for pt in pts_r: f.write(str(pt[0])+ " " + str(pt[1]) + " " + str(pt[2]) + '\n')
+    f.write("\nGrades\n")
+    for g in grd_r: f.write(str(g) + '\n') 
+    f.close()
 
-# Save the files
-f = open("data_random.txt", "w")
-f.write("Points\n")
-for pt in pts_r: f.write(str(pt[0])+ " " + str(pt[1]) + " " + str(pt[2]) + '\n')
-f.write("\nGrades\n")
-for g in grd_r: f.write(str(g) + '\n') 
-f.close()
+    f = open("data_sphere.txt", "w")
+    f.write("Points\n")
+    for pt in pts_s: f.write(str(pt[0])+ " " + str(pt[1]) + " " + str(pt[2]) + '\n')
+    f.write("\nGrades\n")
+    for g in grd_s: f.write(str(g) + '\n') 
+    f.close()
 
-f = open("data_sphere.txt", "w")
-f.write("Points\n")
-for pt in pts_s: f.write(str(pt[0])+ " " + str(pt[1]) + " " + str(pt[2]) + '\n')
-f.write("\nGrades\n")
-for g in grd_s: f.write(str(g) + '\n') 
-f.close()
-
-f = open("data_torus.txt", "w")
-f.write("Points\n")
-for pt in pts_t: f.write(str(pt[0])+ " " + str(pt[1]) + " " + str(pt[2]) + '\n')
-f.write("\nGrades\n")
-for g in grd_t: f.write(str(g) + '\n') 
-f.close()
+    f = open("data_torus.txt", "w")
+    f.write("Points\n")
+    for pt in pts_t: f.write(str(pt[0])+ " " + str(pt[1]) + " " + str(pt[2]) + '\n')
+    f.write("\nGrades\n")
+    for g in grd_t: f.write(str(g) + '\n') 
+    f.close()
