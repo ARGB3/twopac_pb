@@ -108,14 +108,35 @@ def pbt_from_stratif(bd, st):
     srt_bd, cv_tb_on, cv_tb_no = sorted_bd_from_dir(bd,proj_dir)
     pairs.append(pp_from_srt_bd(srt_bd,cv_tb_on, cv_tb_no))
     
-    if len(st) > 2:
-        for i in range(1,len(st)-1):
+    if len(st) > 1:
+        for i in range(0,len(st)-1):
             proj_dir = [1 - np.mean([st[i],st[i+1]]), np.mean([st[i],st[i+1]])]
             srt_bd, cv_tb_on, cv_tb_no = sorted_bd_from_dir(bd,proj_dir)
             pairs.append(pp_from_srt_bd(srt_bd,cv_tb_on, cv_tb_no))
 
-    if len(st) > 1:
-        proj_dir = [1 - np.mean([1,st[-1]]), np.mean([1,st[-1]])]
-        srt_bd, cv_tb_on, cv_tb_no = sorted_bd_from_dir(bd,proj_dir)
-        pairs.append(pp_from_srt_bd(srt_bd,cv_tb_on, cv_tb_no))
+    proj_dir = [1 - np.mean([1,st[-1]]), np.mean([1,st[-1]])]
+    srt_bd, cv_tb_on, cv_tb_no = sorted_bd_from_dir(bd,proj_dir)
+    pairs.append(pp_from_srt_bd(srt_bd,cv_tb_on, cv_tb_no))
     return pairs
+
+def query_from_pbt(dir, pbt, st, bd):
+    if len(st) == 0: 
+        return []
+    
+    def bsi(arr, q):
+        low, high = 0, len(arr) - 1
+        result_index = -1
+        while low <= high:
+            mid = (low + high) // 2
+            if arr[mid] <= q:
+                result_index = mid
+                low = mid + 1
+            else:
+                high = mid - 1
+        return result_index
+
+    index = bsi(st, dir[1]) + 1
+    bars_gen = [np.array([bd[bar[0]][1], bd[bar[1]][1]]) for bar in pbt[index]]
+    bars = [(np.dot(bar[0],dir) , np.dot(bar[1],dir)) for bar in bars_gen]
+    return bars
+    
